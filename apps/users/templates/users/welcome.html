@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login/Register</title>
+	<meta charset="utf-8">
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+</head>
+<body>
+  <div class="container">
+
+	<div class="form">
+		<h1> Register </h1>
+		<p class="error">{% if messages %}
+			{% for message in messages %}
+				{% if 'exists' in message.tags %}
+					{{ message }}
+				{% endif %}
+			{% endfor %}
+		{% endif %}</p>
+
+		<p class="error">{% if messages %}
+			{% for message in messages %}
+				{% if 'field' in message.tags %}
+					{{ message }}
+				{% endif %}
+			{% endfor %}
+		{% endif %}</p>
+				
+			
+		
+
+		<form action="/users" method="post">
+			{% csrf_token %}
+			<p>UserName:<input class="form-control" type="text" name="username">
+				<p class="error">{% if messages %}
+					{% for message in messages %}
+						{% if 'username' in message.tags %}
+							{{ message }}
+						{% endif %}
+					{% endfor %}
+				{% endif %}</p>
+			</p>
+			
+			<p>Password:<input class="form-control" type="password" name="password">
+				<p class="error">{% if messages %}
+					{% for message in messages %}
+						{% if 'password' in message.tags %}
+							{{ message }}
+						{% endif %}
+					{% endfor %}
+				{% endif %}</p>
+			</p>
+			
+			<p><input type="submit"  class="btn btn-primary" value="Register"></p>
+		</form>
+	</div>
+
+	<div class="form">
+		<h1> Login </h1>
+		<p class="error">
+		{% if messages %}
+			{% for message in messages %}
+				{% if 'login' in message.tags %}
+					{{ message }}
+				{% endif %}
+			{% endfor %}
+		{% endif %}</p>
+		<form action="/login" method="post">
+			{% csrf_token %}
+			<p>UserName:<input class="form-control" type="text" name="username"></p>
+			<p>Password:<input class="form-control" type="password" name="password"></p>
+			<input type="submit" class="btn btn-primary" name="Login">
+		</form>
+	</div>
+  </div>	
+</body>
+</html>

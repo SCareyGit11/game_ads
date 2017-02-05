@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Commercials Index</title>
+	<meta charset="utf-8">
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	
+</head>
+<body>
+  <div class="container">
+	<h1 class="col-sm-12"> What was your Favorite Commercial? </h1>
+	<h2 class="col-sm-12 small"> (Vote early, Vote often..) </h4>
+
+	
+
+	<iframe width="420" height="315" src="https://www.youtube.com/embed/XF3wOrWBKjc">
+	</iframe>
+
+	
+
+	
+
+
+	{% if commercials %}
+		{% for commercial in commercials %}
+		<div class="col-sm-6">
+			{% if commercial.youtube != "" %}
+
+				<iframe width="420" height="315" src="https://www.youtube.com/embed/{{commercial.youtube}}">
+				</iframe>
+			{% endif %}
+			<h3>{{ commercial.title | capfirst }} -- {{ commercial.company | capfirst }}</h3>
+				
+				<p class="votes"> Number of votes: {{ commercial.votes.all|length }} 
+					<form id="vote" action="{% url 'commercials:vote' id=commercial.id %}" method="post">
+						{% csrf_token %}
+						<input type="submit" class="btn btn-info" value="Vote for this">
+					</form>
+				</p>
+			
+
+			{% if adposts %}
+				{% for adpost in adposts %}
+					{% if adpost.commercial == commercial %}
+						<p> {{ adpost.content }} -{{adpost.user.username | capfirst }} </p>
+
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+
+
+				<form action="{% url 'commercials:adpost' id=commercial.id %}" method="post">
+					{% csrf_token %}
+					<textarea class="form-control" name="content"></textarea>
+					<input class="btn" type="submit" value="Comment">
+				</form>
+				
+						
+
+			
+				
+		</div>	
+		{% endfor %}
+	{% endif %}
+
+	<div class="form-group col-sm-4">
+		<h3> Don't see your favorite?  Add it here. </h3>
+		<h4> I'll do my best to find a clip </h4>
+		<form  action="{% url 'commercials:new' %}" method="post">
+			{% csrf_token %}
+			Ad:<input class="form-control" type="text" name="title">
+			
+			Company:<input class="form-control" type="text" name="company">
+			Category:<select class="form-control" name="category">
+						<option>Funny</option>
+						<option>Serious</option>
+						<option>Sexy</option>
+						<option>Cameo</option>
+						<option>Nostalgic</option>
+						<option>Cute</option>
+				     </select>
+			Rhetorical Question:<select class="form-control" name="rhetoric">
+									<option>Ethos</option>
+									<option>Pathos</option>
+									<option>Logos</option>
+									<option>Kairos</option>
+									<option>Topos</option>
+								</select>
+			Did it "work":<select class="form-control" name="efficacy">
+							<option>Yes</option>
+							<option>No</option>
+						  </select>
+
+			YouTube:<input type="text" class="form-control" name="youtube">
+			<textarea class="form-control" name="adpost"></textarea>
+			<input type="submit" class="btn btn-primary" value="Cast your Vote">
+
+		</form>
+	</div>
+  </div>
+</body>
+
+</html>

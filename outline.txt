@@ -1,0 +1,44 @@
+add bankroll attribute to User
+
+
+Bets
+  -amount
+  -user
+  -game
+
+Game
+  -score
+  -quarter
+  -plays
+	-TOs
+	-Pick6
+	-ReturnTDs
+  -fantasy
+	-position
+	-player
+  -user
+
+Commercials
+  -title
+  -category (learn selecting multiple choices)
+ 	(can I load clips?)
+	funny, sexy, cute, serious, cameo, nostalgic, continuation(film/tv)
+  -rhetoric
+	Ethos(credibility), Pathos(emotion), Logos, Kairos(timing), Topos(metaphor)
+  -efficacy
+  
+Company
+  -name
+  -industry
+	retail, automotive, telecom, financial, restaurants, insurance, pharmaceutical, food, travel/tourism, non-RX remedies 
+	
+
+
+
+Votes
+  -user
+  -commercial
+
+AdPosts
+  -user
+  -commercial

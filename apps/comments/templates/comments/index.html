@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Message Board</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<h1> Message Board </h1>
+	<form action="{% url 'comments:new' %}" method="post">
+		{% csrf_token %}
+		<label for="content">New Message:</label>
+		<textarea name="content" rows="10" cols="40"></textarea>
+		<input type="submit" valuee="Submit Message">
+	</form>
+
+	{% if messages %}
+		{% for message in messages %}
+			<p> {{ message.content }}</p>
+			<p><b>-{{ message.user.username | capfirst }}</b></p>
+			<p>{{ message.created_at }}</p>
+				
+				{% if message.user.id == request.session.id %}
+					<form action="{% url 'comments:delete' id=message.id %}" method="post">
+						{% csrf_token %}
+						<input type="submit" value="Delete my Message">
+					</form>
+				{% endif %}
+			
+			{% if comments %}
+				{% for comment in comments %}
+					{% if comment.message == message %}
+						<p>{{ comment.content }}</p>
+						<p><b>-{{ comment.user.username | capfirst }}</b></p>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+
+			<form action="{% url 'comments:add' id=message.id %}" method="post">
+				{% csrf_token %}
+				<textarea name="content" rows="8" cols="24"><small>Comment on this message...</small></textarea>
+				<input type="submit" value="Post">
+			</form>
+
+			
+		{% endfor %}
+	{% endif %}
+</body>
+</html>

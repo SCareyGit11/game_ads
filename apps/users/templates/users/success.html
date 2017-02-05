@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Success</title>
+	<meta charset="utf-8">
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'users/css/style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <div class="container-fluid">
+  	<div class="field">
+		<h1> Welcome, {{ request.session.username | capfirst }} </h1>
+		<h2> Place Your Bets! </h2>
+		<h4> Where do you Want to Go? </h4>
+
+
+		<a class="btn btn-primary" href="{% url 'comments:index' %}">Post a Message</a>
+		<a class="btn btn-primary" href="/">The Game</a>
+		<a class="btn btn-primary" href="{% url 'commercials:index' %}">The Commercials</a>
+		<a class="btn btn-primary" href="/">The Halftime Show</a>
+		<a class="btn btn-primary" href="/">Logout</a>
+	</div>
+  </div>	
+</body>
+</html>

@@ -1,6 +1,6 @@
-/*body{
+#welcome{
 	background-image: url("../images/sb50-home-houston.jpeg");
-}*/
+}
 
 .field{
 	background-color: white;
@@ -24,4 +24,12 @@
 
 h1{
 	color: blue;
+}
+
+.comment{
+	margin-left: 80%;
+}
+
+.logout{
+	margin-left: 80%;
 }

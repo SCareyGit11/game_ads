@@ -5,6 +5,8 @@ from .models import User
 # Create your views here.
 
 def welcome(request):
+	if 'id' in request.session:
+		del request.session['id']
 	return render(request, 'users/welcome.html')
 
 def create(request):
@@ -15,7 +17,7 @@ def create(request):
 			print user['newuser'].id
 			request.session['id'] = user['newuser'].id
 			request.session['username'] = user['newuser'].username
-			return render(request, 'users/success.html')
+			return redirect('/commercials')
 
 		elif 'errors' in user:
 			print 50*'x'
@@ -42,7 +44,7 @@ def show(request):
 			print user['member'].id
 			request.session['id'] = user['member'].id
 			request.session['username'] = user['member'].username
-			return render(request, 'users/success.html')
+			return redirect('/commercials')
 		elif 'login' in user['errors']:
 			messages.error(request, 'Login not found', extra_tags='login')
 			return redirect('/')

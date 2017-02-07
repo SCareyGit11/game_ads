@@ -13,13 +13,13 @@
 </head>
 <body>
   <div class="container">
+    <a class="btn btn-primary logout" href="/">Logout</a>
 	<h1 class="col-sm-12"> What was your Favorite Commercial? </h1>
 	<h2 class="col-sm-12 small"> (Vote early, Vote often..) </h4>
 
 	
 
-	<iframe width="420" height="315" src="https://www.youtube.com/embed/XF3wOrWBKjc">
-	</iframe>
+	
 
 	
 
@@ -28,7 +28,7 @@
 
 	{% if commercials %}
 		{% for commercial in commercials %}
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			{% if commercial.youtube != "" %}
 
 				<iframe width="420" height="315" src="https://www.youtube.com/embed/{{commercial.youtube}}">
@@ -57,16 +57,20 @@
 				<form action="{% url 'commercials:adpost' id=commercial.id %}" method="post">
 					{% csrf_token %}
 					<textarea class="form-control" name="content"></textarea>
-					<input class="btn" type="submit" value="Comment">
-				</form>
+					<input class="btn btn-sm comment" type="submit" value="Comment">
+				</form><br>
 				
 						
 
 			
 				
-		</div>	
+		</div>
+
 		{% endfor %}
 	{% endif %}
+
+
+
 
 	<div class="form-group col-sm-4">
 		<h3> Don't see your favorite?  Add it here. </h3>
@@ -96,7 +100,8 @@
 							<option>No</option>
 						  </select>
 
-			YouTube:<input type="text" class="form-control" name="youtube">
+			
+			Add a comment...
 			<textarea class="form-control" name="adpost"></textarea>
 			<input type="submit" class="btn btn-primary" value="Cast your Vote">
 
